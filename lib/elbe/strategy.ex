@@ -1,3 +1,5 @@
 defmodule Elbe.Strategy do
-  @callback get_host(%{hosts: map}) :: map
+  alias Elbe.Host
+
+  @callback get_host(%{hosts: map}) :: Host.t()
 end

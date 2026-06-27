@@ -53,7 +53,7 @@ defmodule Elbe.Router do
       )
 
     Logger.debug(
-      "TO FORWARDED: sent #{body} to #{conn.method} #{@hardcoded_host}:#{@hardcoded_port}#{conn.request_path}"
+      "TO FORWARDED: sent #{body} to #{conn.method} #{host.host}:#{host.port}#{conn.request_path}"
     )
 
     response = build_response(fwd_conn)
