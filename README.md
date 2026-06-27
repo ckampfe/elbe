@@ -21,3 +21,4 @@ be found at <https://hexdocs.pm/elbe>.
 
 - [ ] liveness checks
 - [ ] stream client request body to downstreams
+- [ ] mechanisms to add/remove hosts
