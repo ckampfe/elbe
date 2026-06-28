@@ -15,7 +15,11 @@ defmodule Elbe.Application do
          hosts:
            MapSet.new([
              %Elbe.Host{host: "localhost", port: 4002},
-             %Elbe.Host{host: "localhost", port: 4003}
+             %Elbe.Host{host: "localhost", port: 4003},
+             %Elbe.Host{host: "localhost", port: 4004},
+             %Elbe.Host{host: "localhost", port: 4005},
+             %Elbe.Host{host: "localhost", port: 4006},
+             %Elbe.Host{host: "localhost", port: 4007}
            ])
        }},
       {Bandit, plug: Elbe.Router, scheme: :http, port: 4001}
