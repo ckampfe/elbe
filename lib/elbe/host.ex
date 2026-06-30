@@ -4,7 +4,7 @@ defmodule Elbe.Host do
 
   @type t :: %__MODULE__{host: binary, port: integer, connections: non_neg_integer()}
 
-  def load(%__MODULE__{} = host) do
-    host.connections
+  def new(args) do
+    struct(__MODULE__, args)
   end
 end

@@ -16,7 +16,8 @@ defmodule Elbe.Router do
 
   match _ do
     strategy = Elbe.Strategies.TwoRandom
-    host = HostState.get_host(strategy)
+
+    {host, ref} = HostState.get_host(strategy)
 
     Logger.debug("Selected #{inspect(host)} using strategy #{strategy}")
 
@@ -31,7 +32,7 @@ defmodule Elbe.Router do
 
     conn = send_resp(conn, response.status, response.body)
 
-    HostState.return_host(host)
+    HostState.return_host(ref)
 
     conn
   end
@@ -66,8 +67,12 @@ defmodule Elbe.Router do
   end
 
   defp build_response(fwd_conn, resp) do
+    # these matches are recommended by bandit:
+    # https://bandit.hexdocs.pm/Bandit.html#module-receiving-messages-in-your-plug-process-a-word-of-warning
     receive do
-      message ->
+      message
+      when not (is_tuple(message) and tuple_size(message) == 2 and elem(message, 0) == :bandit and
+                    message != {:plug_conn, :sent}) ->
         {:ok, _fwd_conn, responses} = Mint.HTTP.stream(fwd_conn, message)
 
         Enum.reduce(responses, resp, fn
